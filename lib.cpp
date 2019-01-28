@@ -78,7 +78,7 @@ long w_galton_simple(uint32_t& state) {
 // should yield 0, (a - 1) should yield 1, etc.
 long w_galton(uint32_t& state) {
     pm_rng(state);
-    const uint64_t a = 5; // actually it is assumed that *a* is small
+    const uint64_t a = 20; // actually it is assumed that *a* is small
 
     // ascending part of the distribution, including the central point
     uint64_t j = 0;
@@ -109,8 +109,7 @@ complex<double> u_feynman(long x) {
     i.real(0);
     i.imag(1);
     //return exp(-i * 0.5 * M_PI * pow(static_cast<double>(x) / 10.0, 2));
-    //return exp(-pow(static_cast<double>(x) / 10.0, 2));
-    return exp(-(x / 10.0) * (x / 10.0));
+    return exp(-pow(static_cast<double>(x) / 3.0, 2));
 }
 
 // Interface //

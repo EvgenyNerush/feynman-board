@@ -5,12 +5,12 @@ import numpy.ctypeslib   as ctl
 import ctypes            as ct
 import matplotlib.pyplot as plt
 
-s0 = 0
+s0 = 1
 
-nparticles = 100000
-nt = 100
+nparticles = 40000000
+nt = 7
 
-nb = 50 #int(5 * np.sqrt(nt))
+nb = 40 #int(5 * np.sqrt(nt))
 na = -nb
 
 nx = nb - na + 1
@@ -44,11 +44,16 @@ iys = np.array(list(map(im, ys)))
 
 plt.plot(xs, rys, '-', label = 'MC, Re')
 plt.plot(xs, iys, '-', label = 'MC, Im')
-plt.legend()
 
 # particle distribution from Central limit theorem
-#ys_clt = nparticles * np.exp(-xs**2 / (2 * nt * 4)) / np.sqrt(2 * np.pi * nt * 4)
-ys_clt = rys[na] * np.exp(-xs**2 / (2 * nt * 4))
+sigma_w = 8.15
+#ys_clt = nparticles * np.exp(-xs**2 / (2 * nt * sigma_w**2)) / np.sqrt(2 * np.pi * nt * sigma_w)
+ys_clt = rys[na] * np.exp(-xs**2 / (2 * nt * 8.15**2))
 plt.plot(xs, ys_clt, '-', label = 'CLT\'')
+
+# just an estimate
+ys_theory = rys[na] * np.exp(-xs**2 / (0.5 * nt**2 * 3))
+plt.plot(xs, ys_theory, '-', label = 'estim')
+plt.legend()
 
 plt.savefig("feynman.png")
